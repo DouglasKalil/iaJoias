@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu Carrinho</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="btn">🏠 Início</a>
+      <a href="cart.html" class="btn active">🛒 Carrinho</a>
+    </nav>
+  </header>
+
+  <main class="cart-container">
+    <h1>🛒 Meu Carrinho</h1>
+    <div id="cart-list" class="cart-list"></div>
+    <div id="cart-total" class="cart-total"></div>
+    <div class="cart-actions">
+      <a href="index.html" class="btn">← Continuar Comprando</a>
+      <button id="checkout-btn" class="btn primary">Finalizar no WhatsApp</button>
+    </div>
+  </main>
+
+  <!-- Modal Finalizar Pedido -->
+  <div id="checkoutModal" style="display: none;">
+    <div id="checkoutContent">
+      <span class="closeModal" onclick="fecharModal()">✖</span>
+      <h2>Finalizar Pedido</h2>
+
+      <label>
+        Entrega ou Retirada?
+        <select id="deliveryOption">
+          <option value="retirada">Retirada</option>
+          <option value="entrega">Entrega</option>
+        </select>
+      </label>
+
+      <div id="addressField" style="display:none;">
+        <label>
+          Endereço para entrega:
+          <input type="text" id="deliveryAddress" placeholder="CIdade, Bairro, Rua, Número, referência">
+        </label>
+      </div>
+
+      <label>
+        Forma de pagamento:
+        <select id="paymentOption">
+          <option value="pix">Pix</option>
+          <option value="debito">Débito</option>
+          <option value="credito">Crédito</option>
+        </select>
+      </label>
+
+      <button onclick="sendOrder()">📲 Enviar Pedido no WhatsApp</button>
+    </div>
+  </div>
+
+  <script src="cart.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel do Administrador</title>
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <h2>Cadastrar / Editar Produto</h2>
+
+  <form id="productForm">
+    <input type="hidden" id="productId" value="" /> <!-- Para armazenar o ID do produto quando editar -->
+
+    <label for="nome">Nome do Produto:</label>
+    <input type="text" id="nome" name="nome" required />
+
+    <label for="preco">Preço (R$):</label>
+    <input type="number" id="preco" name="preco" step="0.01" required />
+
+    <label for="categoria">Categoria:</label>
+    <select id="categoria" name="categoria" required>
+      <option value="">Selecione...</option>
+      <option value="anel">Anel</option>
+      <option value="cordao">Cordão</option>
+      <option value="pulseira">Pulseira</option>
+      <option value="brinco">Brinco</option>
+    </select>
+
+    <label for="imagem">Imagem do Produto:</label>
+    <input type="file" id="imagem" name="imagem" accept="image/*" capture="environment" />
+    <img id="preview" src="" alt="Prévia da imagem" style="max-width:150px; display:none;" />
+
+    <button type="submit">Salvar Produto</button>
+    <button type="button" id="cancelEdit" style="display:none;">Cancelar Edição</button>
+  </form>
+
+  <h2>Produtos Cadastrados</h2>
+
+  <!-- Filtro por categoria -->
+  <div style="margin-bottom: 20px;">
+    <label for="filtroCategoriaAdmin"><strong>Filtrar por categoria:</strong></label>
+    <select id="filtroCategoriaAdmin">
+      <option value="">Todas</option>
+      <option value="anel">Anel</option>
+      <option value="cordao">Cordão</option>
+      <option value="pulseira">Pulseira</option>
+      <option value="brinco">Brinco</option>
+    </select>
+  </div>
+
+  <div id="productListAdmin"></div>
+
+  
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>
