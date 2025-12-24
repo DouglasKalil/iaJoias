@@ -1,141 +1,115 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catálogo de Joias</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Acesso</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4e54c8, #8f94fb);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            width: 350px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            background-color: #4e54c8;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #3b40a4;
+        }
+
+        .toggle-link {
+            display: block;
+            margin-top: 15px;
+            color: #4e54c8;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .form-box {
+            display: none;
+        }
+
+        .form-box.active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Cabeçalho -->
-  <header>
-    <h1>Catálogo de Joias</h1>
-    <nav>
-      <!-- Botões de filtro por categoria -->
-      <button class="filter-btn" data-category="todos">Todos</button>
-      <button class="filter-btn" data-category="anel">Anéis</button>
-      <button class="filter-btn" data-category="cordao">Cordões</button>
-      <button class="filter-btn" data-category="pulseira">Pulseiras</button>
-      <button class="filter-btn" data-category="brinco">Brinco</button>
-      <button class="menu-btn" id="cartButton">
-        🛒 Carrinho <span id="cart-count">0</span>
-      </button>
-    </nav>
-  </header>
+    <div class="container">
+        <div id="message-box" class="hidden"></div>
 
-  <!-- Lista de Produtos -->
-  <main id="product-list">
-    <!-- Produto 1 - Anel -->
-    <div class="product-card" data-category="aneis">
-      <img src="https://via.placeholder.com/150" alt="Anel de Ouro">
-      <h2>Anel de Ouro</h2>
-      <p>R$ 350,00</p>
-      <button>Comprar</button>
+        <!-- Formulário de Login -->
+        <div id="loginForm" class="form-box active">
+            <h2>Login</h2>
+            <input type="email" id="loginEmail" placeholder="E-mail" required>
+            <input type="password" id="loginSenha" placeholder="Senha" required>
+            <button id="btnLogin">Entrar</button>
+            <span class="toggle-link" onclick="mostrarCadastro()">Criar conta</span>
+        </div>
+
+        <!-- Formulário de Cadastro -->
+        <div id="cadastroForm" class="form-box">
+            <h2>Cadastrar</h2>
+            <input type="text" id="cadastroNome" placeholder="Nome completo" required>
+            <input type="email" id="cadastroEmail" placeholder="E-mail" required>
+            <input type="password" id="cadastroSenha" placeholder="Senha" required>
+            <select id="cadastroTipo">
+                <option value="cliente">Cliente</option>
+                <option value="admin">Administrador</option>
+            </select>
+            <button id="btnCadastro">Cadastrar</button>
+            <span class="toggle-link" onclick="mostrarLogin()">Já tenho conta</span>
+        </div>
     </div>
 
-    <div class="product-card" data-category="aneis">
-      <img src="https://via.placeholder.com/150" alt="Anel de prata">
-      <h2>Anel de prata</h2>
-      <p>R$ 350,00</p>
-      <button>Comprar</button>
-    </div>
+    <script>
+        function mostrarCadastro() {
+            document.getElementById("loginForm").classList.remove("active");
+            document.getElementById("cadastroForm").classList.add("active");
+        }
 
-    <div class="product-card" data-category="aneis">
-      <img src="https://via.placeholder.com/150" alt="Anel de bronze">
-      <h2>Anel de bronze</h2>
-      <p>R$ 350,00</p>
-      <button>Comprar</button>
-    </div>
+        function mostrarLogin() {
+            document.getElementById("cadastroForm").classList.remove("active");
+            document.getElementById("loginForm").classList.add("active");
+        }
+    </script>
 
-    <!-- Produto 2 - Cordão -->
-    <div class="product-card" data-category="cordoes">
-      <img src="https://via.placeholder.com/150" alt="Cordão de Prata">
-      <h2>Cordão de Prata</h2>
-      <p>R$ 220,00</p>
-      <button>Comprar</button>
-    </div>
-    <div class="product-card" data-category="cordoes">
-      <img src="https://via.placeholder.com/150" alt="Cordão de ouro">
-      <h2>Cordão de Ouro</h2>
-      <p>R$ 220,00</p>
-      <button>Comprar</button>
-    </div>
-    <div class="product-card" data-category="cordoes">
-      <img src="https://via.placeholder.com/150" alt="Cordão de bronze">
-      <h2>Cordão de bronze</h2>
-      <p>R$ 220,00</p>
-      <button>Comprar</button>
-    </div>
-
-    <!-- Produto 3 - Pulseira -->
-    <div class="product-card" data-category="pulseiras">
-      <img src="https://via.placeholder.com/150" alt="Pulseira de Aço">
-      <h2>Pulseira de Aço</h2>
-      <p>R$ 180,00</p>
-      <button>Comprar</button>
-    </div>
-
-    <div class="product-card" data-category="pulseiras">
-      <img src="https://via.placeholder.com/150" alt="Pulseira de ouro">
-      <h2>Pulseira de Ouro</h2>
-      <p>R$ 180,00</p>
-      <button>Comprar</button>
-    </div>
-  </main>
-
-  <!-- Toast para feedback -->
-  <div id="toast"></div>
-
-  <!-- Firebase -->
-  <script type="module" src="./firebase.js"></script>
-
-  <!-- Script do carrinho -->
-  <script>
-    // Atualiza contador do carrinho
-    function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      document.getElementById("cart-count").textContent = cart.length;
-    }
-
-    // Mostra toast de feedback
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-      toast.textContent = message;
-      toast.className = "show";
-      setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
-    }
-
-    // Adiciona produto ao carrinho
-    function addToCart(product) {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart.push(product);
-      localStorage.setItem("cart", JSON.stringify(cart));
-
-      updateCartCount();
-      showToast("Produto adicionado ao carrinho ✅");
-    }
-
-    // Quando clicar em "Comprar"
-    document.querySelectorAll(".product-card button").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        const card = e.target.closest(".product-card");
-        const product = {
-          nome: card.querySelector("h2").textContent,
-          preco: card.querySelector("p").textContent,
-          img: card.querySelector("img").src,
-        };
-        addToCart(product);
-      });
-    });
-
-    // Inicializa contador ao carregar página
-    document.addEventListener("DOMContentLoaded", updateCartCount);
-
-    // Ação do botão carrinho
-    document.getElementById("cartButton").addEventListener("click", () => {
-      window.location.href = "cart.html";
-    });
-  </script>
+    <script type="module" src="login.js"></script>
 </body>
 </html>

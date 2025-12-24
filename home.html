@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Joias</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+  <header>
+    <h1>Catálogo de Joias</h1>
+    <nav>
+      <!-- Botões de filtro por categoria -->
+      <button class="filter-btn" data-category="todos">Todos</button>
+      <button class="filter-btn" data-category="anel">Anéis</button>
+      <button class="filter-btn" data-category="cordao">Cordões</button>
+      <button class="filter-btn" data-category="pulseira">Pulseiras</button>
+      <button class="filter-btn" data-category="brinco">Brinco</button>
+      <button class="menu-btn" id="cartButton">
+        🛒 Carrinho <span id="cart-count">0</span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Lista de Produtos -->
+  <main id="product-list">
+    <!-- Produto 1 - Anel -->
+    <div class="product-card" data-category="aneis">
+      <img src="https://via.placeholder.com/150" alt="Anel de Ouro">
+      <h2>Anel de Ouro</h2>
+      <p>R$ 350,00</p>
+      <button>Comprar</button>
+    </div>
+
+    <div class="product-card" data-category="aneis">
+      <img src="https://via.placeholder.com/150" alt="Anel de prata">
+      <h2>Anel de prata</h2>
+      <p>R$ 350,00</p>
+      <button>Comprar</button>
+    </div>
+
+    <div class="product-card" data-category="aneis">
+      <img src="https://via.placeholder.com/150" alt="Anel de bronze">
+      <h2>Anel de bronze</h2>
+      <p>R$ 350,00</p>
+      <button>Comprar</button>
+    </div>
+
+    <!-- Produto 2 - Cordão -->
+    <div class="product-card" data-category="cordoes">
+      <img src="https://via.placeholder.com/150" alt="Cordão de Prata">
+      <h2>Cordão de Prata</h2>
+      <p>R$ 220,00</p>
+      <button>Comprar</button>
+    </div>
+    <div class="product-card" data-category="cordoes">
+      <img src="https://via.placeholder.com/150" alt="Cordão de ouro">
+      <h2>Cordão de Ouro</h2>
+      <p>R$ 220,00</p>
+      <button>Comprar</button>
+    </div>
+    <div class="product-card" data-category="cordoes">
+      <img src="https://via.placeholder.com/150" alt="Cordão de bronze">
+      <h2>Cordão de bronze</h2>
+      <p>R$ 220,00</p>
+      <button>Comprar</button>
+    </div>
+
+    <!-- Produto 3 - Pulseira -->
+    <div class="product-card" data-category="pulseiras">
+      <img src="https://via.placeholder.com/150" alt="Pulseira de Aço">
+      <h2>Pulseira de Aço</h2>
+      <p>R$ 180,00</p>
+      <button>Comprar</button>
+    </div>
+
+    <div class="product-card" data-category="pulseiras">
+      <img src="https://via.placeholder.com/150" alt="Pulseira de ouro">
+      <h2>Pulseira de Ouro</h2>
+      <p>R$ 180,00</p>
+      <button>Comprar</button>
+    </div>
+  </main>
+
+  <!-- Toast para feedback -->
+  <div id="toast"></div>
+
+  <!-- Firebase -->
+  <script type="module" src="./firebase.js"></script>
+
+  <!-- Script do carrinho -->
+  <script>
+    // Atualiza contador do carrinho
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      document.getElementById("cart-count").textContent = cart.length;
+    }
+
+    // Mostra toast de feedback
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.className = "show";
+      setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+    }
+
+    // Adiciona produto ao carrinho
+    function addToCart(product) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      updateCartCount();
+      showToast("Produto adicionado ao carrinho ✅");
+    }
+
+    // Quando clicar em "Comprar"
+    document.querySelectorAll(".product-card button").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const card = e.target.closest(".product-card");
+        const product = {
+          nome: card.querySelector("h2").textContent,
+          preco: card.querySelector("p").textContent,
+          img: card.querySelector("img").src,
+        };
+        addToCart(product);
+      });
+    });
+
+    // Inicializa contador ao carregar página
+    document.addEventListener("DOMContentLoaded", updateCartCount);
+
+    // Ação do botão carrinho
+    document.getElementById("cartButton").addEventListener("click", () => {
+      window.location.href = "cart.html";
+    });
+  </script>
+</body>
+</html>
