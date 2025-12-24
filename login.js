@@ -83,7 +83,7 @@ document.getElementById("btnLogin").addEventListener("click", async () => {
       if (dados.tipo === "admin") {
         window.location.href = "admin.html";
       } else {
-        window.location.replace = "home.html";
+        window.location.replace("home.html");
       }
     } else {
       showMessage("Usuário não encontrado no banco de dados.", "error");
